@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Address;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -26,14 +27,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    @Column(name = "username", length = 50, nullable = false)
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "biodata_id", referencedColumnName = "id")
+    private Biodata biodata;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",

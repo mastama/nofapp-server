@@ -28,4 +28,8 @@ public class Biodata {
 
     @Column(name = "kecanduan")
     private String kecanduan;
+
+    // users: OneToOne
+    @OneToOne(mappedBy = "biodata", cascade = CascadeType.ALL)
+    private User user;
 }
